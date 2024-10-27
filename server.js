@@ -61,3 +61,18 @@ app.use('/api/providers', providerRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+
+const keepAliveUrl = 'https://dhatchanandcogasbooking.onrender.com';
+
+function keepAlive() {
+  axios.get(keepAliveUrl)
+    .then(response => {
+      console.log(`Pinged at ${new Date().toISOString()}: Status ${response.status}`);
+    })
+    .catch(error => {
+      console.error(`Error pinging at ${new Date().toISOString()}:`, error.message);
+    });
+}
+
+// Ping every 5 minutes
+setInterval(keepAlive, 5 * 60 * 1000); // 5 minutes in milliseconds
